@@ -5,13 +5,14 @@ require_relative "account"
 describe Account do
 
   before(:each) do
-    @account = Account.new "1234567890", [5,5,5]
+    @account = Account.new "1234567890", 15
   end
 
   describe "#initialize" do
     it "takes 2 arguments" do
       #should this be account?
-      @account.should respond_to(:initialize).with(2).arguments
+
+      Account.should respond_to(:new).with(2).arguments
     end
 
     context "requires numeric argument" do
@@ -27,23 +28,23 @@ describe Account do
 
   describe "#transactions" do
     it "returns the correct transactions number" do
-      @account.transactions should eql [5,5,5]
+      @account.transactions.should eql [15]
     end
 
     it "returns an array of transactions" do
-      @account.transactions should be_an_instance_of Array
+      @account.transactions.should be_an_instance_of Array
     end
   end
 
   describe "#balance" do
     it "returns the correct balance" do
-      @account.balance should eql 15
+      @account.balance.should eql 15
     end
   end
 
   describe "#account_number" do
     it "returns the correct account_number" do
-     @account.account_number should eql "1234567890"
+     @account.acct_number.should eql "******7890"
     end
   end
 
@@ -59,7 +60,7 @@ describe Account do
 
   describe "#withdraw!" do
     it "should raise an exception if you withdraw more than your balance" do
-      expect {@account.withdraw!(100)}.to raise_error(OverDraftError)
+      expect {@account.withdraw!(100)}.to raise_error(OverdraftError)
     end
 
     it "should return the correct balance" do
